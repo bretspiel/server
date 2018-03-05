@@ -10,7 +10,7 @@ export class LoungeChatController {
   }
 
   async add(user: User, message: string): Promise<ChatMessage[]> {
-    await loungeChatRepository.save(user, message);
+    await loungeChatRepository.add(user, message);
     return loungeChatRepository.listAll();
   }
 }

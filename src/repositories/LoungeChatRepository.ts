@@ -5,7 +5,7 @@ import * as uuid from "uuid";
 let state: ChatMessage[] = [];
 
 export class LoungeChatRepository {
-  save(user: User, message: string): Promise<ChatMessage> {
+  add(user: User, message: string): Promise<ChatMessage> {
     const loungeChatMessage: ChatMessage = {
       id: uuid.v4(),
       createdAt: new Date().toISOString(),

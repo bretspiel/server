@@ -12,7 +12,7 @@
     "noUnusedParameters": true,
     "importHelpers": true,
     "noEmitHelpers": true,
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
     "target": "es2015",

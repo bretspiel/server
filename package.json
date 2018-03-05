@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
+    "start": "ts-node src",
     "fmt": "prettier --parser typescript 'src/**/*.ts{,x}' --write",
     "lint": "tslint --project tsconfig.json --fix"
   },

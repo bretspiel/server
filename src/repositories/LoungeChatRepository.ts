@@ -1,25 +1,23 @@
-import { LoungeChatMessage, LoungeChatState } from "../models/LoungeChatState";
+import { ChatMessage } from "../models/ChatMessage";
 import { User } from "../models/User";
 import * as uuid from "uuid";
 
-const state: LoungeChatState = {
-  messages: []
-};
+let state: ChatMessage[] = [];
 
 export class LoungeChatRepository {
-  save(user: User, message: string): Promise<LoungeChatMessage> {
-    const loungeChatMessage: LoungeChatMessage = {
+  save(user: User, message: string): Promise<ChatMessage> {
+    const loungeChatMessage: ChatMessage = {
       id: uuid.v4(),
       createdAt: new Date().toISOString(),
       user,
       message
     };
-    state.messages.push(loungeChatMessage);
+    state.push(loungeChatMessage);
 
     return Promise.resolve(loungeChatMessage);
   }
 
-  listAll(): Promise<LoungeChatState> {
+  listAll(): Promise<ChatMessage[]> {
     return Promise.resolve(state);
   }
 }

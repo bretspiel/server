@@ -19,14 +19,14 @@ export class Server {
       app.get("/status", new StatusController().getStatus);
 
       // lounge-chat routes
-      const loungeChatNamespace = io.of("/lounge-chat");
+      const loungeChatNamespace = io.of("/chat/lounge");
       loungeChatNamespace.on("connect", async socket => {
         const controller = new LoungeChatController();
 
         socket.emit("update", await controller.get());
         socket.on("add", async (user: User, message: string) => {
-          const loungeChatState = await controller.add(user, message);
-          loungeChatNamespace.emit("update", loungeChatState);
+          const chatMessages = await controller.add(user, message);
+          loungeChatNamespace.emit("update", chatMessages);
         });
       });
 

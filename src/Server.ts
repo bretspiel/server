@@ -5,6 +5,7 @@ import * as SocketIo from "socket.io";
 import { StatusController } from "./controllers/StatusController";
 import { LoungeChatController } from "./controllers/LoungeChatController";
 import { User } from "./models/User";
+import { CounterController } from "./controllers/CounterController";
 
 export class Server {
   bootUp(host: string, port: number): Promise<void> {
@@ -17,6 +18,22 @@ export class Server {
 
       // status routes
       app.get("/status", new StatusController().getStatus);
+
+      const counterNamespace = io.of("/counter");
+      counterNamespace.on("connect", async socket => {
+        const controller = new CounterController();
+
+        socket.emit("update", await controller.get());
+        socket.on("get", async () => {
+          socket.emit("update", await controller.get());
+        });
+        socket.on("patch", async (delta: number) => {
+          socket.emit("update", await controller.patch(delta));
+        });
+        socket.on("delete", async () => {
+          socket.emit("update", await controller.delete());
+        });
+      });
 
       // lounge-chat routes
       const loungeChatNamespace = io.of("/chat/lounge");

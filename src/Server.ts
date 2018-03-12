@@ -25,13 +25,13 @@ export class Server {
 
         socket.emit("update", await controller.get());
         socket.on("get", async () => {
-          socket.emit("update", await controller.get());
+          counterNamespace.emit("update", await controller.get());
         });
         socket.on("patch", async (delta: number) => {
-          socket.emit("update", await controller.patch(delta));
+          counterNamespace.emit("update", await controller.patch(delta));
         });
         socket.on("delete", async () => {
-          socket.emit("update", await controller.delete());
+          counterNamespace.emit("update", await controller.delete());
         });
       });
 
